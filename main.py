@@ -2,7 +2,7 @@
 
 def menu ():
     
-    while true:
+    
     
         print ("==========VRESTON -Ordens de Serviço==========")
         print ("#                                            #")
