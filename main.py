@@ -30,6 +30,7 @@ def menu (lista_OS, lista_log, numeroOS):
         
         match opc:
             case 1:
+                #numeroOS = numeroOS + 1s
                 cadastrar_OS(lista_OS,numeroOS, lista_log)
             case 2:
                 
@@ -37,7 +38,7 @@ def menu (lista_OS, lista_log, numeroOS):
                 print ("#           Por qual dado deseja buscar?     #")
                 print ("#                                            #")
                 print ("#        1 - Buscar por Numero de OS         #")
-                print ("#        2 - Buscar por Descrição da OS      #")
+                print ("#        2 - Buscar por Equipamento          #")
                 print ("#        0 - Sair                            #")
                 print ("#                                            #")
                 print ("##############################################")
@@ -48,7 +49,10 @@ def menu (lista_OS, lista_log, numeroOS):
                     case 1:
                         pass
                     case 2:
-                        pass
+                        
+                        valor = input("")
+                        buscarElementoCampoUnico (lista_OS, valor)
+                        
                     case 0:
                         pass
 
@@ -81,8 +85,6 @@ def menu (lista_OS, lista_log, numeroOS):
 
 def cadastrar_OS(lista, numero_OS, lista_log):
     
-    pass
-    
     print ("\n\n======VRESTON -Ordens de Serviço==========\n\n")
     
     id = int(numero_OS)
@@ -90,9 +92,22 @@ def cadastrar_OS(lista, numero_OS, lista_log):
     status = bool(1)
     solicitante = str (input ("Digite po nome do solicitante>>>"))
     custo = str (input("Digite o custo total da OS>>>"))
+    
     equipamento = str(input("Digite o nome do Equipamento>>>"))
+    
+    val = verificarUnicidade(lista, equipamento)
+    
+    if val == 1:
+        while val == 1:
+            equipamento = str(input ("Equipamento ja existente, favor digite o nome de outro equipamento>>>"))
+            val = verificarUnicidade (lista, equipamento)
+        
+    
     executor = str(input("Digite o nome do executor da OS>>>"))
     
+     ## - Durante o cadastro a função cadastro chama a função registrar, e passa como parametro uma string
+     # com o tipo de dado acessado e a lista log.
+     
     registrarLog ("Cadastro - ", lista_log)
     
     OS = dict(numero = id, desc = desc, status = status, solicitante = solicitante, custo = custo, equipamento = equipamento, executor = executor )
@@ -113,13 +128,43 @@ def listarlog (lista_log):
     
     for i in lista_log:
         print (i)
-        
 
+def verificarUnicidade (lista_OS, valor):
+    
+    for i in lista_OS:
+        
+        if i["equipamento"] == valor:
+            
+            return 1
+
+            break
+    else:
+        return 0
+
+def buscarElementoCampoUnico (lista_OS, valor):
+    
+    for i in lista_OS:
+        
+        if i["equipamento"] == valor:
+            
+            print ("Valor Encontrado>>>")
+            print ("Numero da OS:" + i["id"])
+            print ("Descrição:" + i["desc"])
+            print ("Status:" + i["status"])
+            print ("Solicitante:" + i["solicitante"])
+            print ("Custo da OS: R$:" + i["custo"])
+            print ("Equipamento:" + i["equipamento"])
+            print ("Executor da OS:" + i["executor"])
+            
+            print ("\n\n>>>>>>>>>>>>>>>>>>>>")
+            break
+    else:
+        print ("Valor nao encontrado")
+            
 
 lista_OS = []
 lista_log = []
-Numero_OS = int(0)
-
+Numero_OS = 0
       
 menu (lista_OS, lista_log, Numero_OS)
 
