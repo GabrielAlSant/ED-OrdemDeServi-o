@@ -2,7 +2,7 @@
 
 # Atributos: ID, Desc, Status, Solicitante, Custo, Equipamento, Executor.
 
-def menu ():
+def menu (lista_OS, numeroOS):
     
     while True:
     
@@ -28,7 +28,7 @@ def menu ():
         
         match opc:
             case 1:
-                pass
+                cadastrar_OS(lista_OS,numeroOS)
             case 2:
                 
                 print ("\n\n==========VRESTON -Ordens de Serviço==========")
@@ -70,15 +70,24 @@ def cadastrar_OS(lista, numero_OS):
     
     print ("\n\n======VRESTON -Ordens de Serviço==========\n\n")
     
+    id = int(numero_OS)
+    desc = str(input("Digite a Descriçào da Ordem de Serviço>>>"))
+    status = bool(1)
+    solicitante = str (input ("Digite po nome do solicitante>>>"))
+    custo = str (input("Digite o custo total da OS>>>"))
+    equipamento = str(input("Digite o nome do Equipamento>>>"))
+    executor = str(input("Digite o nome do executor da OS>>>"))
+    
+    OS = dict(numero = id, desc = desc, status = status, solicitante = solicitante, custo = custo, equipamento = equipamento, executor = executor )
+    
+    lista_OS.append(OS)
     
     
 
-    
-    
-    
-      
-menu ()
 
 lista_OS = []
 Numero_OS = int(0)
+
+      
+menu (lista_OS, Numero_OS)
 
