@@ -3,6 +3,7 @@
 # Atributos: ID, nomeDaOrdem = (solicitante+data), Desc, Status, Solicitante, Custo, Equipamento, Executor.
 
 import datetime as dt
+from operator import itemgetter
 
 def menu (lista_OS, lista_log, numeroOS):
     
@@ -19,8 +20,8 @@ def menu (lista_OS, lista_log, numeroOS):
         print ("#        7 - Exibir OS com mair custo        #")
         print ("#        8 - Exibir OS com menor custo       #")
         print ("#        9 - Exibir quantidade de OSs        #")
-        print ("#        10 - Exibir LOG de uso              #")                      
-        print ("#                                            #")
+        print ("#       10 - Exibir LOG de uso               #")                      
+        print ("#       11 - Exibir a lista ordenada         #")
         print ("#                                            #")
         print ("##############################################")
         
@@ -49,14 +50,17 @@ def menu (lista_OS, lista_log, numeroOS):
                     
                     case 1:
                         
+                        registrarLog("Buscar Elemento por Descrição", lista_log)
+                        
                         valor = str(input("Digite a String a ser buscada>>>"))
                         
                         buscarPorDescricao(valor, lista_OS)
                         
                     case 2:
                         
-                        valor = input("Digite uma opção>>>")
-                        buscarElementoCampoUnico (lista_OS, valor)
+                        registrarLog("Buscar Elemento por Campo único", lista_log)
+                        
+                        buscarElementoCampoUnico (lista_OS)
                         
                     case 0:
                         pass
@@ -79,32 +83,47 @@ def menu (lista_OS, lista_log, numeroOS):
                 
                 match opc3:
                     case 1:
+                        registrarLog("Listar todas as OSs", lista_log)
                         listarTodosElementos(lista_OS)
                     case 2:
+                        registrarLog("Listar todas as OSs Abertas", lista_log)
                         listarOSabertas(lista_OS)
                     case 3:
+                        registrarLog("Listar todas as Fechadas", lista_log)
                         listarOSfechadas(lista_OS)
                     case 0:
                         pass
                 
             case 4:
+                registrarLog("Alterar OS", lista_log)
                 alterarOS(lista_OS)
-            case 5:
-                excluirOS(lista_OS)
-            case 6:
-                exibirMediaCusto(lista_OS)
-            case 7:
-                maior(lista_OS)
-                pass
-            case 8:
-                menor(lista_OS)
-                pass
-            case 9:
-                contagem(lista_OS)
-                pass
-            case 10:
                 
+            case 5:
+                registrarLog("Excluir OS", lista_log)
+                excluirOS(lista_OS)
+                
+            case 6:
+                registrarLog("Exibir média de custo das OSs", lista_log)
+                exibirMediaCusto(lista_OS)
+                
+            case 7:
+                registrarLog("Exibir OS com maior custo", lista_log)
+                maior(lista_OS)
+                
+            case 8:
+                registrarLog("Exibir OS com menor custo", lista_log)
+                menor(lista_OS)
+                
+            case 9:
+                registrarLog("Exibir contagem de OSs", lista_log)
+                contagem(lista_OS)
+                
+            case 10:
+                registrarLog("Exibir Log do sistema", lista_log)
                 listarlog(lista_log)
+                
+            case 11:
+                exibirOrdenado(lista_OS)
             
             case 0:
                 pass
@@ -171,7 +190,9 @@ def listarlog (lista_log):
         print (i)
 
 
-def buscarElementoCampoUnico (lista_OS, valor):
+def buscarElementoCampoUnico (lista_OS):
+    
+    valor = input("Digite uma opção>>>")
     
     for i in lista_OS:
         
@@ -401,6 +422,49 @@ def menor(lista_OS):
 
     print("O maior valor cadastrado é " , menor, " cadastrados no sistema", tarefa)
     
+
+def exibirOrdenado (lista_OS):
+    
+    print ("Exibir OSs ordenadas\n")
+    print ("1 - Crescente")
+    print ("2 - Decrescente")
+    print ("\n\n")
+    
+    opc = int(input("Digite a opção desejada>>>"))
+    
+    match opc:
+        case 1:
+            lista_crescente = sorted (lista_OS, key=itemgetter("nomeOS"))
+            
+            for i in lista_crescente:
+                
+                print ("\n")
+                print("Numero da OS:" + str(i["id"]))
+                print("Nome da OS:" + i["nomeOS"])
+                print("Descrição:" + i["desc"])
+                print("Status:" + str(i["status"]))
+                print("Solicitante:" + i["solicitante"])
+                print("Custo da OS: R$:" + str(i["custo"]))
+                print("Equipamento:" + i["equipamento"])
+                print("Executor da OS:" + i["executor"])
+                print (">>>>>>>>\n")
+                
+        case 2:
+            lista_desc = sorted (lista_OS, key=itemgetter("nomeOS"), reverse=True)
+            
+            for i in lista_desc:
+                
+                print ("\n")
+                print("Numero da OS:" + str(i["id"]))
+                print("Nome da OS:" + i["nomeOS"])
+                print("Descrição:" + i["desc"])
+                print("Status:" + str(i["status"]))
+                print("Solicitante:" + i["solicitante"])
+                print("Custo da OS: R$:" + str(i["custo"]))
+                print("Equipamento:" + i["equipamento"])
+                print("Executor da OS:" + i["executor"])
+                print (">>>>>>>>\n")
+            
 lista_OS = []
 lista_log = []
 Numero_OS = 0
