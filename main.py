@@ -98,6 +98,7 @@ def menu (lista_OS, lista_log, numeroOS):
             case 8:
                 pass
             case 9:
+                contagem(lista_OS)
                 pass
             case 10:
                 
@@ -349,7 +350,8 @@ def exibirMediaCusto (lista_OS):
     print (" A media do custos da OSs:" + str(media) + " reais.")
 
 
-
+def contagem(lista_OS):
+    print("Há um total de " ,len(lista_OS), " cadastrados no sistema")
     
 lista_OS = []
 lista_log = []
