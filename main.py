@@ -141,7 +141,7 @@ def cadastrar_OS(lista, numero_OS, lista_log):
         
     desc = str(input("Digite a Descrição da Ordem de Serviço>>>"))
     status = bool(1) #O indicador 1 significa que a OS esta aberta
-    custo = str (input("Digite o custo total da OS>>>"))
+    custo = float(input("Digite o custo total da OS>>>"))
     equipamento = str(input("Digite o local que sera realizado o serviço:>>>"))
     executor = str(input("Digite o nome do executor da OS>>>"))
     
@@ -173,7 +173,7 @@ def listarlog (lista_log):
 
 def buscarElementoCampoUnico (lista_OS, valor):
     
-    for  x, i in lista_OS:
+    for i in lista_OS:
         
         if i["nomeOS"] == valor:
             
@@ -271,57 +271,76 @@ def verificarUnicidade (valor, lista_OS):
             return 1
     else:
         return 0
-def alterarOS (lista_OS):
     
-    valor =  str(input("Digite o nome da OS que deseja alterar>>>"))
+def alterarOS(lista_OS):
     
+    valor = str(input("Digite o nome da OS que deseja alterar>>>"))
+
     for i in lista_OS:
-         if valor == i["nomeOS"]:
-             
-             buscarElementoCampoUnico(lista_OS, valor)
-             
-             print ("=======Qual campo deseja alterar========\n\n")
-             print ("1 - Descrição:")
-             print ("2 - Status:")
-             print ("3 - Solicitante:")
-             print ("4 - Custo:")
-             print ("5 - Equipamento:")
-             print ("6 - Executor:")
-             
-             opc = input("Digite uma opção>>>")
-             
-             match opc:
-                 case 1:
-                     val = str(input ("Digite a nova descrição>>>"))
-                     i["des"] = val
-                 case 2:
-                     print ("\nQual o novo status da OS\n")
-                     print ("1 - Aberta")
-                     print ("2 - Fechada")
-                     
-                     opc2 = input (">>>>")
-                     
-                     match opc2:
-                        case 1:
-                            i["status"] = True
-                        case 2:
-                            i["status"] = False
-                             
-                     
-                 case 3:
-                     val = str(input ("Digite o novo solicitante>>>"))
-                     i["solicitante"] = val
-                 case 4:
-                     val = float(input ("Digite o novo custo>>>"))
-                     i["custo"] = val
-                 case 5:
-                     val = str(input ("Digite o novo equipamento>>>"))
-                     i["equipamento"] = val
-                 case 6:
-                    val = str(input ("Digite o novo executor>>>"))
-                    i["executor"] = val
+        
+        if valor == i["nomeOS"]:
+            
+            print("Numero da OS:" + str(i["id"]))
+            print("Nome da OS:" + i["nomeOS"])
+            print("Descrição:" + i["desc"])
+            print("Status:" + str(i["status"]))
+            print("Solicitante:" + i["solicitante"])
+            print("Custo da OS: R$:" + str(i["custo"]))
+            print("Equipamento:" + i["equipamento"])
+            print("Executor da OS:" + i["executor"])
+
+            print("=======Qual campo deseja alterar========\n\n")
+            print("1 - Descrição:")
+            print("2 - Status:")
+            print("3 - Solicitante:")
+            print("4 - Custo:")
+            print("5 - Equipamento:")
+            print("6 - Executor:")
+
+            opc4 = input("Digite uma opção>>>")
+
+            if opc4 == "1":
+                val = str(input("Digite a nova descrição>>>"))
+                i["desc"] = val
+                
+            elif opc4 == "2":
+                print("\nQual o novo status da OS\n")
+                print("1 - Aberta")
+                print("2 - Fechada")
+                
+                opc5 = input(">>>>")
+                
+                if opc5 == "1":
+                    
+                    i["status"] = True
+                    
+                elif opc5 == "2":
+                    
+                    i["status"] = False
+                    
+            elif opc4 == "3":
+                
+                val = str(input("Digite o novo solicitante>>>"))
+                i["solicitante"] = val
+                
+            elif opc4 == "4":
+                val = float(input("Digite o novo custo>>>"))
+                i["custo"] = val
+                
+            elif opc4 == "5":
+                val = str(input("Digite o novo equipamento>>>"))
+                i["equipamento"] = val
+                
+            elif opc4 == "6":
+                val = str(input("Digite o novo executor>>>"))
+                i["executor"] = val
+                
+            else:
+                print("Opção inválida")
+                
+            break
     else:
-            print ("OS não encontrada!")
+        print("OS não encontrada!")
 
 def excluirOS (lista_OS):
 
@@ -343,11 +362,11 @@ def exibirMediaCusto (lista_OS):
 
     for i in lista_OS:
 
-      valor = valor + int(i["custo"])
+      valor = valor + float(i["custo"])
     
     quant = len (lista_OS)
 
-    media = valor/quant
+    media = float(valor/quant)
 
     print (" A media do custos da OSs:" + str(media) + " reais.")
 
