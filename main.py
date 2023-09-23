@@ -97,6 +97,7 @@ def menu (lista_OS, lista_log, numeroOS):
                 maior(lista_OS)
                 pass
             case 8:
+                menor(lista_OS)
                 pass
             case 9:
                 contagem(lista_OS)
@@ -366,6 +367,20 @@ def maior(lista_OS):
           tarefa = i
 
     print("O maior valor cadastrado é " , maior, " cadastrados no sistema", tarefa)
+
+
+def menor(lista_OS):
+    menor  = 0
+    
+
+    for i in lista_OS:
+      valor = int(i["custo"])
+      tarefa = i
+      if valor < menor:
+          menor = valor
+          tarefa = i
+
+    print("O maior valor cadastrado é " , menor, " cadastrados no sistema", tarefa)
     
 lista_OS = []
 lista_log = []
