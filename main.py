@@ -123,6 +123,7 @@ def menu (lista_OS, lista_log, numeroOS):
                 listarlog(lista_log)
                 
             case 11:
+                registrarLog("Exibir Ordenado", lista_log)
                 exibirOrdenado(lista_OS)
             
             case 0:
@@ -178,7 +179,8 @@ def cadastrar_OS(lista, numero_OS, lista_log):
 def registrarLog (tipo, lista_log):
     
     tipo = tipo
-    horario = str (dt.datetime.now())
+    
+    horario = str (dt.datetime.now().replace(microsecond=0))
     
     registro = dict (tipo = tipo, horario = horario)
     
@@ -187,7 +189,8 @@ def registrarLog (tipo, lista_log):
 def listarlog (lista_log):
     
     for i in lista_log:
-        print (i)
+        print ("função acessada:" , i["tipo"])
+        print ("Horario do acesso", i["horario"])
 
 
 def buscarElementoCampoUnico (lista_OS):
