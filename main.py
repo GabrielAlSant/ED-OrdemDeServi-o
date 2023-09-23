@@ -90,9 +90,9 @@ def menu (lista_OS, lista_log, numeroOS):
             case 4:
                 alterarOS(lista_OS)
             case 5:
-                pass
+                excluirOS(lista_OS)
             case 6:
-                pass
+                exibirMediaCusto(lista_OS)
             case 7:
                 pass
             case 8:
@@ -319,7 +319,37 @@ def alterarOS (lista_OS):
                     i["executor"] = val
     else:
             print ("OS não encontrada!")
+
+def excluirOS (lista_OS):
+
+    val = str(input(" Digite o nome da OS para excluir>>>"))
+    indice = 0
+
+    for ind , i in enumerate( lista_OS):
+        if val == i["nomeOS"]:
+            indice = ind
+
+            print ("Valor excluido!")
+            break
+    else:
+        print ("Valor não encontrado!")
+
+def exibirMediaCusto (lista_OS):
+
+    valor = 0
+
+    for i in lista_OS:
+
+      valor = valor + int(i["custo"])
     
+    quant = len (lista_OS)
+
+    media = valor/quant
+
+    print (" A media do custos da OSs:" + str(media) + " reais.")
+
+
+
     
 lista_OS = []
 lista_log = []
