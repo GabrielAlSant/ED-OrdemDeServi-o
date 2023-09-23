@@ -94,6 +94,7 @@ def menu (lista_OS, lista_log, numeroOS):
             case 6:
                 exibirMediaCusto(lista_OS)
             case 7:
+                maior(lista_OS)
                 pass
             case 8:
                 pass
@@ -352,6 +353,19 @@ def exibirMediaCusto (lista_OS):
 
 def contagem(lista_OS):
     print("Há um total de " ,len(lista_OS), " cadastrados no sistema")
+
+def maior(lista_OS):
+    maior  = 0
+    
+
+    for i in lista_OS:
+      valor = int(i["custo"])
+      tarefa = i
+      if valor > maior:
+          maior = valor
+          tarefa = i
+
+    print("O maior valor cadastrado é " , maior, " cadastrados no sistema", tarefa)
     
 lista_OS = []
 lista_log = []
