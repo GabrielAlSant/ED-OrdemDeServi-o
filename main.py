@@ -22,6 +22,7 @@ def menu (lista_OS, lista_log, numeroOS):
         print ("#        9 - Exibir quantidade de OSs        #")
         print ("#       10 - Exibir LOG de uso               #")                      
         print ("#       11 - Exibir a lista ordenada         #")
+        print ("#        0 - Sair do sistema                 #")
         print ("#                                            #")
         print ("##############################################")
         
@@ -127,7 +128,7 @@ def menu (lista_OS, lista_log, numeroOS):
                 exibirOrdenado(lista_OS)
             
             case 0:
-                pass
+               break
             case _:
                 pass
 
@@ -143,7 +144,7 @@ def cadastrar_OS(lista, numero_OS, lista_log):
     solicitante = str (input ("Digite o nome do solicitante>>>"))
     
     dataatual = dt.date.today()
-    nomeOS = str(solicitante + dataatual.strftime("%y-%m-%d"))
+    nomeOS = str(solicitante + dataatual.strftime("%d-%m-%y"))
     
     val = verificarUnicidade(nomeOS, lista)
     
@@ -152,7 +153,7 @@ def cadastrar_OS(lista, numero_OS, lista_log):
             print ("OS ja existe no sistema.")
             
             solicitante = str (input ("Digite o nome do solicitante>>>"))
-            nomeOS = str(solicitante + dataatual.strftime("%y-%m-%d"))
+            nomeOS = str(solicitante + dataatual.strftime("%d-%m-%y"))
             
             val = verificarUnicidade (nomeOS,lista)
     else:    
@@ -206,7 +207,10 @@ def buscarElementoCampoUnico (lista_OS):
             print ("Numero da OS:" + str(i["id"]))
             print ("Nome da OS:" + i["nomeOS"])
             print ("Descrição:" + i["desc"])
-            print ("Status:" + str (i["status"]))
+            if i["status"] == True:
+                    print("Status: Em andamento.")
+            else: 
+                    print("Status: Finalizada!")
             print ("Solicitante:" + i["solicitante"])
             print ("Custo da OS: R$:" + str( i["custo"]))
             print ("Equipamento:" + i["equipamento"])
@@ -240,7 +244,10 @@ def listarTodosElementos (lista_OS):
          
         print ("Nome da OS:" + i["nomeOS"])
         print ("Descrição:" + i["desc"])
-        print ("Status:" + str (i["status"]))
+        if i["status"] == True:
+                    print("Status: Em andamento.")
+        else: 
+                    print("Status: Finalizada!")
         print ("Solicitante:" + i["solicitante"])
         print ("Custo da OS: R$:" + str( i["custo"]))
         print ("Equipamento:" + i["equipamento"])
@@ -258,7 +265,10 @@ def listarOSabertas (lista_OS): #Lista todas as OSs com valor boleano TRUE
             print ("Numero da OS:" + str(i["id"]))
             print ("Nome da OS:" + i["nomeOS"])
             print ("Descrição:" + i["desc"])
-            print ("Status:" + str (i["status"]))
+            if i["status"] == True:
+                    print("Status: Em andamento.")
+            else: 
+                    print("Status: Finalizada!")
             print ("Solicitante:" + i["solicitante"])
             print ("Custo da OS: R$:" + str( i["custo"]))
             print ("Equipamento:" + i["equipamento"])
@@ -278,7 +288,10 @@ def listarOSfechadas (lista_OS): #Lista todas as OSs com valor boleano FALSE
             print ("Numero da OS:" + str(i["id"]))
             print ("Nome da OS:" + i["nomeOS"])
             print ("Descrição:" + i["desc"])
-            print ("Status:" + str (i["status"]))
+            if i["status"] == True:
+                    print("Status: Em andamento.")
+            else: 
+                    print("Status: Finalizada!")
             print ("Solicitante:" + i["solicitante"])
             print ("Custo da OS: R$:" + str( i["custo"]))
             print ("Equipamento:" + i["equipamento"])
@@ -307,7 +320,10 @@ def alterarOS(lista_OS):
             print("Numero da OS:" + str(i["id"]))
             print("Nome da OS:" + i["nomeOS"])
             print("Descrição:" + i["desc"])
-            print("Status:" + str(i["status"]))
+            if i["status"] == True:
+                    print("Status: Em andamento.")
+            else: 
+                    print("Status: Finalizada!")
             print("Solicitante:" + i["solicitante"])
             print("Custo da OS: R$:" + str(i["custo"]))
             print("Equipamento:" + i["equipamento"])
@@ -369,13 +385,11 @@ def alterarOS(lista_OS):
 def excluirOS (lista_OS):
 
     val = str(input(" Digite o nome da OS para excluir>>>"))
-    indice = 0
-
+  
     for ind , i in enumerate( lista_OS):
         if val == i["nomeOS"]:
-            indice = ind
-
-            print ("Valor excluido!")
+            lista_OS.pop(ind)
+            print ("Ordem excluida!")
             break
     else:
         print ("Valor não encontrado!")
@@ -392,38 +406,66 @@ def exibirMediaCusto (lista_OS):
 
     media = float(valor/quant)
 
-    print (" A media do custos da OSs:" + str(media) + " reais.")
+    print (" A media do custos da OSs:", round(media, 2), " reais.")
 
 
 def contagem(lista_OS):
-    print("Há um total de " ,len(lista_OS), " cadastrados no sistema")
+    print("Há um total de " , len(lista_OS), " OSs cadastradas no sistema")
+
+def imprimir(i):
+  print("Nome da OS:" + i["nomeOS"])
+  print("Descrição:" + i["desc"])
+  if i["status"] == True:
+   print("Status: Em andamento.")
+  else: 
+   ("Status: Finalizada!")
+  print("Solicitante:" + i["solicitante"])
+  print("Custo da OS: R$:" + str(i["custo"]))
+  print("Equipamento:" + i["equipamento"])
+  print("Executor da OS:" + i["executor"])
+
 
 def maior(lista_OS):
     maior  = 0
-    
+    indice = False
 
-    for i in lista_OS:
+    for ind, i in enumerate(lista_OS):
       valor = int(i["custo"])
-      tarefa = i
-      if valor > maior:
+      
+      if valor >= maior:
+          indice = True
           maior = valor
-          tarefa = i
+          os = lista_OS[ind]
+    
+    if indice == True:
+         print("A ultima ordem com maior valor no cadastrado é " , maior)
+         imprimir(os)
+    else: 
+        print('Não tem nenhuma ordem cadastrada')
 
-    print("O maior valor cadastrado é " , maior, " cadastrados no sistema", tarefa)
+        
 
+   
 
 def menor(lista_OS):
     menor  = 0
-    
+    indice = False
 
-    for i in lista_OS:
+    for ind, i in enumerate(lista_OS):
       valor = int(i["custo"])
-      tarefa = i
-      if valor < menor:
+      if menor <= valor:
+          indice = True
           menor = valor
-          tarefa = i
+          os = lista_OS[ind]    
+    
+    if indice == True:
+        print("A ultima ordem com menor valor no cadastrado é" , menor, " cadastrados no sistema")
+        imprimir(os)
+    else: 
+        print('Não tem nenhuma ordem cadastrada')
+          
 
-    print("O maior valor cadastrado é " , menor, " cadastrados no sistema", tarefa)
+    
     
 
 def exibirOrdenado (lista_OS):
@@ -445,7 +487,10 @@ def exibirOrdenado (lista_OS):
                 print("Numero da OS:" + str(i["id"]))
                 print("Nome da OS:" + i["nomeOS"])
                 print("Descrição:" + i["desc"])
-                print("Status:" + str(i["status"]))
+                if i["status"] == True:
+                    print("Status: Em andamento.")
+                else: 
+                    print("Status: Finalizada!")
                 print("Solicitante:" + i["solicitante"])
                 print("Custo da OS: R$:" + str(i["custo"]))
                 print("Equipamento:" + i["equipamento"])
@@ -461,7 +506,10 @@ def exibirOrdenado (lista_OS):
                 print("Numero da OS:" + str(i["id"]))
                 print("Nome da OS:" + i["nomeOS"])
                 print("Descrição:" + i["desc"])
-                print("Status:" + str(i["status"]))
+                if i["status"] == True:
+                    print("Status: Em andamento.")
+                else: 
+                    print("Status: Finalizada!")
                 print("Solicitante:" + i["solicitante"])
                 print("Custo da OS: R$:" + str(i["custo"]))
                 print("Equipamento:" + i["equipamento"])
