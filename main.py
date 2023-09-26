@@ -442,18 +442,16 @@ def maior(lista_OS):
          imprimir(os)
     else: 
         print('Não tem nenhuma ordem cadastrada')
-
-        
-
-   
+      
 
 def menor(lista_OS):
-    menor  = 0
+    menor = lista_OS[0] ['custo']
     indice = False
 
     for ind, i in enumerate(lista_OS):
       valor = int(i["custo"])
-      if menor <= valor:
+      
+      if menor >= valor:
           indice = True
           menor = valor
           os = lista_OS[ind]    
@@ -463,10 +461,7 @@ def menor(lista_OS):
         imprimir(os)
     else: 
         print('Não tem nenhuma ordem cadastrada')
-          
-
-    
-    
+              
 
 def exibirOrdenado (lista_OS):
     
