@@ -136,9 +136,14 @@ def menu (lista_OS, lista_log, numeroOS):
 
 def cadastrar_OS(lista, numero_OS, lista_log):
     
+    
+    arq = open("matheus.txt", "a")
+    
+    
     print ("\n\n======VRESTON -Ordens de Serviço==========\n\n")
     
     id = int(numero_OS)
+    
     
     print ("Cadastro ===== OS N."+ str (numero_OS))
     solicitante = str (input ("Digite o nome do solicitante>>>"))
@@ -174,7 +179,12 @@ def cadastrar_OS(lista, numero_OS, lista_log):
     OS = dict(id = id, desc = desc, nomeOS = nomeOS, status = status, solicitante = solicitante, custo = custo, equipamento = equipamento, executor = executor )
     
     lista_OS.append(OS)
-        
+    
+    #grava o dicionário no arquivo de texto
+    arq.write(str(OS))
+    
+    arq.close()
+    
     print ("OS cadastrada com sucesso!\n")
         
 def registrarLog (tipo, lista_log):
@@ -510,6 +520,8 @@ def exibirOrdenado (lista_OS):
                 print("Equipamento:" + i["equipamento"])
                 print("Executor da OS:" + i["executor"])
                 print (">>>>>>>>\n")
+                
+    
             
 lista_OS = []
 lista_log = []
