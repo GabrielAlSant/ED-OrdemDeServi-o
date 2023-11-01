@@ -137,13 +137,12 @@ def menu (lista_OS, lista_log, numeroOS):
 def cadastrar_OS(lista, numero_OS, lista_log):
     
     
-    arq = open("matheus.txt", "a")
+    
     
     
     print ("\n\n======VRESTON -Ordens de Serviço==========\n\n")
     
     id = int(numero_OS)
-    
     
     print ("Cadastro ===== OS N."+ str (numero_OS))
     solicitante = str (input ("Digite o nome do solicitante>>>"))
@@ -181,7 +180,17 @@ def cadastrar_OS(lista, numero_OS, lista_log):
     lista_OS.append(OS)
     
     #grava o dicionário no arquivo de texto
-    arq.write(str(OS))
+    
+    arq = open("matheus.txt", "a")
+    
+    arq.write(str(id) + "\n")
+    arq.write(str(desc)+ "\n")
+    arq.write(str(nomeOS) + "\n")
+    arq.write(str(status) + "\n")
+    arq.write(str(solicitante) + "\n")
+    arq.write(str(custo) + "\n")
+    arq.write(str(equipamento) + "\n")
+    arq.write(str(executor) + "\n")
     
     arq.close()
     
@@ -521,11 +530,21 @@ def exibirOrdenado (lista_OS):
                 print("Executor da OS:" + i["executor"])
                 print (">>>>>>>>\n")
                 
+def read_arquivo():
     
+    lista_os = []
+    
+    arq = open("matheus.txt", "a+")
+            
+        
+    print (lista_os)
             
 lista_OS = []
 lista_log = []
 Numero_OS = 0
-      
+ 
+  
 menu (lista_OS, lista_log, Numero_OS)
+
+
 
